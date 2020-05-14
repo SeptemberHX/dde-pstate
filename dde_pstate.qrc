@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="dde-pstate.svg">resources/icons/dde-pstate.svg</file>
+        <file alias="performance.svg">resources/icons/performance.svg</file>
+        <file alias="powersave.svg">resources/icons/powersave.svg</file>
+        <file alias="default.svg">resources/icons/default.svg</file>
+        <file alias="dde-pstate-dark.svg">resources/icons/dde-pstate-dark.svg</file>
+        <file alias="ondemand.svg">resources/icons/ondemand.svg</file>
+        <file alias="balance-performance.svg">resources/icons/balance-performance.svg</file>
+        <file alias="balance-powersave.svg">resources/icons/balance-powersave.svg</file>
+    </qresource>
+    <qresource prefix="/scripts">
+        <file alias="set_prefs.sh">resources/scripts/set_prefs.sh</file>
+    </qresource>
+</RCC>
