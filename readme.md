@@ -12,7 +12,13 @@
 
 #### From release
 
-ToDo
+```shell script
+wget https://github.com/SeptemberHX/dde-pstate/releases/download/0.0.1/dde-pstate-001.zip
+unzip dde-pstate-001.zip
+cd dde-pstate-001
+chmod +x ./install.sh
+./install.sh
+```
 
 #### Build from source
 
