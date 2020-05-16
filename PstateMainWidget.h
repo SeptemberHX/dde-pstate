@@ -22,9 +22,19 @@ private slots:
     void setMaxPerfLabel(int cpuPerf);
     void setCpuGov(int buttonId);
     void setEnergy(int buttonId);
+
+    // CPU Performance
     void setMinPerf();
     void setMaxPerf();
     void setTurbo(bool flag);
+
+    // GPU Frequencies
+    void setGpuMinFreq();
+    void setGpuMaxFreq();
+    void setGpuBoostFreq();
+    void setGpuMinFreqLabel(int gpuFreq);
+    void setGpuMaxFreqLabel(int gpuFreq);
+    void setGpuBoostFreqLabel(int gpuFreq);
 
 private:
     Ui::PstateMainWidget *ui;

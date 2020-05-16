@@ -14,11 +14,17 @@ PstateMainWidget::PstateMainWidget(QWidget *parent) :
 
     connect(ui->minPerfSlider, &QSlider::valueChanged, this, &PstateMainWidget::setMinPerfLabel);
     connect(ui->maxPerfSlider, &QSlider::valueChanged, this, &PstateMainWidget::setMaxPerfLabel);
-
     connect(ui->minPerfSlider, &QSlider::sliderReleased, this, &PstateMainWidget::setMinPerf);
     connect(ui->maxPerfSlider, &QSlider::sliderReleased, this, &PstateMainWidget::setMaxPerf);
 
     connect(ui->turboCheckBox, &QCheckBox::clicked, this, &PstateMainWidget::setTurbo);
+
+    connect(ui->gpuMinFreqSlider, &QSlider::valueChanged, this, &PstateMainWidget::setGpuMinFreqLabel);
+    connect(ui->gpuMaxFreqSlider, &QSlider::valueChanged, this, &PstateMainWidget::setGpuMaxFreqLabel);
+    connect(ui->gpuBoostFreqSlider, &QSlider::valueChanged, this, &PstateMainWidget::setGpuBoostFreqLabel);
+    connect(ui->gpuMinFreqSlider, &QSlider::sliderReleased, this, &PstateMainWidget::setGpuMinFreq);
+    connect(ui->gpuMaxFreqSlider, &QSlider::sliderReleased, this, &PstateMainWidget::setGpuMaxFreq);
+    connect(ui->gpuBoostFreqSlider, &QSlider::sliderReleased, this, &PstateMainWidget::setGpuBoostFreq);
 
     this->m_cpuGovGroup = new QButtonGroup(this);
     this->m_cpuGovGroup->addButton(ui->cpuPerfToolButton);
@@ -112,6 +118,15 @@ void PstateMainWidget::refresh() {
     } else if (energy == "power") {
         ui->energyPowersaveToolButton->setChecked(true);
     }
+
+    int gpuMinLimit = dataJson["gpu_min_limit"].toString().toInt();
+    int gpuMaxLimit = dataJson["gpu_max_limit"].toString().toInt();
+    ui->gpuMinFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+    ui->gpuMaxFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+    ui->gpuBoostFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+    ui->gpuMinFreqSlider->setValue(dataJson["gpu_min_freq"].toString().toInt());
+    ui->gpuMaxFreqSlider->setValue(dataJson["gpu_max_freq"].toString().toInt());
+    ui->gpuBoostFreqSlider->setValue(dataJson["gpu_boost_freq"].toString().toInt());
 }
 
 void PstateMainWidget::setCpuGov(int buttonId) {
@@ -164,4 +179,31 @@ void PstateMainWidget::setEnergy(int buttonId) {
     }
 
     this->refresh();
+}
+
+void PstateMainWidget::setGpuMinFreq() {
+    PStateUtils::setGpuMinFreq(ui->gpuMinFreqSlider->value());
+    this->refresh();
+}
+
+void PstateMainWidget::setGpuMaxFreq() {
+    PStateUtils::setGpuMaxFreq(ui->gpuMaxFreqSlider->value());
+    this->refresh();
+}
+
+void PstateMainWidget::setGpuBoostFreq() {
+    PStateUtils::setGpuBoostFreq(ui->gpuBoostFreqSlider->value());
+    this->refresh();
+}
+
+void PstateMainWidget::setGpuMinFreqLabel(int gpuFreq) {
+    ui->gpuMinFreqLabel->setText(QString::number(gpuFreq) + " MHz");
+}
+
+void PstateMainWidget::setGpuMaxFreqLabel(int gpuFreq) {
+    ui->gpuMaxFreqLabel->setText(QString::number(gpuFreq) + " MHz");
+}
+
+void PstateMainWidget::setGpuBoostFreqLabel(int gpuFreq) {
+    ui->gpuBoostFreqLabel->setText(QString::number(gpuFreq) + " MHz");
 }

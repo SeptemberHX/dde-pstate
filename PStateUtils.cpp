@@ -81,3 +81,21 @@ const void PStateUtils::setEnergyPowersave() {
     m_process.start("pkexec", QStringList() << SCRIPT << "-energy-perf" << "power");
     m_process.waitForFinished();
 }
+
+const void PStateUtils::setGpuMinFreq(int gpuFreq) {
+    QProcess m_process;
+    m_process.start("pkexec", QStringList() << SCRIPT << "-gpu-min-freq" << QString::number(gpuFreq));
+    m_process.waitForFinished();
+}
+
+const void PStateUtils::setGpuMaxFreq(int gpuFreq) {
+    QProcess m_process;
+    m_process.start("pkexec", QStringList() << SCRIPT << "-gpu-max-freq" << QString::number(gpuFreq));
+    m_process.waitForFinished();
+}
+
+const void PStateUtils::setGpuBoostFreq(int gpuFreq) {
+    QProcess m_process;
+    m_process.start("pkexec", QStringList() << SCRIPT << "-gpu-boost-freq" << QString::number(gpuFreq));
+    m_process.waitForFinished();
+}

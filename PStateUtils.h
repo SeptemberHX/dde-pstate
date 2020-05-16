@@ -28,6 +28,10 @@ public:
     const static void setEnergyBalancePerformance();
     const static void setEnergyBalancePowersave();
     const static void setEnergyPowersave();
+
+    const static void setGpuMinFreq(int gpuFreq);
+    const static void setGpuMaxFreq(int gpuFreq);
+    const static void setGpuBoostFreq(int gpuFreq);
 };
 
 
