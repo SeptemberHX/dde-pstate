@@ -11,6 +11,16 @@ PstateMainWidget::PstateMainWidget(QWidget *parent) :
     ui(new Ui::PstateMainWidget)
 {
     ui->setupUi(this);
+    qDebug() << "==================" << QLocale::system().language();
+    switch (QLocale::system().language()) {
+        case QLocale::Chinese:
+            this->m_translator = new QTranslator(this);
+            this->m_translator->load(":/translations/app_zh.qm");
+            qApp->installTranslator(this->m_translator);
+            ui->retranslateUi(this);
+        default:
+            break;
+    }
 
     connect(ui->minPerfSlider, &QSlider::valueChanged, this, &PstateMainWidget::setMinPerfLabel);
     connect(ui->maxPerfSlider, &QSlider::valueChanged, this, &PstateMainWidget::setMaxPerfLabel);

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QButtonGroup>
+#include <QTranslator>
 
 namespace Ui {
 class PstateMainWidget;
@@ -40,6 +41,7 @@ private:
     Ui::PstateMainWidget *ui;
     QButtonGroup *m_cpuGovGroup;
     QButtonGroup *m_energyGroup;
+    QTranslator *m_translator;
 };
 
 #endif // PSTATEMAINWIDGET_H

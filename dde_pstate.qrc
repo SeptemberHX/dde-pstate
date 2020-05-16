@@ -12,4 +12,7 @@
     <qresource prefix="/scripts">
         <file alias="set_prefs.sh">resources/scripts/set_prefs.sh</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file alias="app_zh.qm">resources/translations/app_zh.qm</file>
+    </qresource>
 </RCC>

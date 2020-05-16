@@ -38,6 +38,7 @@ file(GLOB SRCS "*.h" "*.cpp")
 # <库名>_LIBRARIES      有哪些库文件（Qt5Widgets_LIBRARIES）
 find_package(Qt5Widgets REQUIRED)
 find_package(DtkWidget REQUIRED)
+find_package(Qt5LinguistTools REQUIRED)
 
 # find_package 命令还可以用来加载 cmake 的功能模块
 # 并不是所有的库都直接支持 cmake 查找的，但大部分都支持了 pkg-config 这个标准，
@@ -66,6 +67,11 @@ pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
 # 基于 qt5 或更高版本的新插件不必使用此变量。要查看 qt5 的库定义了哪些变量应该查看变量：${Qt5Widgets_DEFINITIONS}
 add_definitions("${QT_DEFINITIONS} -DQT_PLUGIN")
 
+set(TS_FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/translations/app_zh.ts
+        )
+qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+
 qt5_wrap_ui(UIS_HDRS
         PstateMainWidget.ui
 )
@@ -76,7 +82,7 @@ qt5_wrap_ui(UIS_HDRS
 # SHARED 表示生成的库应该是动态库，
 # 变量 ${PLUGIN_NAME} 和 ${SRCS} 都是前面处理好的，
 # 另外 qrc 资源文件也应该追加在后面以编译进目标中。
-add_library(${PLUGIN_NAME} SHARED ${SRCS} dde_pstate.qrc ${UIS_HDRS})
+add_library(${PLUGIN_NAME} SHARED ${SRCS} dde_pstate.qrc ${UIS_HDRS} ${QM_FILES})
 
 # 设置目标的生成位置，这里表示生成在执行 make 的目录,
 # 另外还有很多可用于设置的属性，可查阅 cmake 文档。
