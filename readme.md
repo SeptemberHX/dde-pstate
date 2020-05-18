@@ -12,13 +12,7 @@
 
 #### From release
 
-```shell script
-wget https://github.com/SeptemberHX/dde-pstate/releases/download/0.0.1/dde-pstate-001.zip
-unzip dde-pstate-001.zip
-cd dde-pstate-001
-chmod +x ./install.sh
-./install.sh
-```
+Download deb file from release and install it with `sudo apt install /path/to/dde-pstate.deb`
 
 #### Build from source
 
