@@ -257,7 +257,9 @@ get_support_gov() {
   do
     json="${json}\"${gov}\","
   done
-  json=${json%?}
+  if [ ${json:-1} != "[" ]; then
+    json=${json%?}
+  fi
   json="${json}]"
   available_gov=$json
 }
@@ -269,7 +271,9 @@ get_support_energy() {
   do
     json="${json}\"${energy}\","
   done
-  json=${json%?}
+  if [ ${json:-1} != "[" ]; then
+    json=${json%?}
+  fi
   json="${json}]"
   available_energy=$json
 }

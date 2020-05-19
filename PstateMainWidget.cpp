@@ -18,11 +18,13 @@ PstateMainWidget::PstateMainWidget(QWidget *parent) :
             this->m_translator->load(":/translations/app_zh.qm");
             qApp->installTranslator(this->m_translator);
             ui->retranslateUi(this);
+            break;
         case QLocale::Spanish:
             this->m_translator = new QTranslator(this);
             this->m_translator->load(":/translations/app_es.qm");
             qApp->installTranslator(this->m_translator);
             ui->retranslateUi(this);
+            break;
         default:
             break;
     }
@@ -78,13 +80,17 @@ void PstateMainWidget::refresh() {
     ui->cpuPerfToolButton->setHidden(true);
     ui->cpuOndemandToolButton->setHidden(true);
     QJsonArray govArray = dataJson["available_gov"].toArray();
-    for (auto iter = govArray.begin(); iter != govArray.end(); ++iter) {
-        if (iter->toString() == "performance") {
-            ui->cpuPerfToolButton->setHidden(false);
-        } else if (iter->toString() == "powersave") {
-            ui->cpuPowerToolButton->setHidden(false);
-        } else if (iter->toString() == "ondemand") {
-            ui->cpuOndemandToolButton->setHidden(false);
+    if (govArray.isEmpty()) {
+        ui->cpuGroupBox->hide();
+    } else {
+        for (auto iter = govArray.begin(); iter != govArray.end(); ++iter) {
+            if (iter->toString() == "performance") {
+                ui->cpuPerfToolButton->setHidden(false);
+            } else if (iter->toString() == "powersave") {
+                ui->cpuPowerToolButton->setHidden(false);
+            } else if (iter->toString() == "ondemand") {
+                ui->cpuOndemandToolButton->setHidden(false);
+            }
         }
     }
 
@@ -107,17 +113,21 @@ void PstateMainWidget::refresh() {
     ui->energyPerfToolButton->hide();
     ui->energyDefaultToolButton->hide();
     QJsonArray energyArray = dataJson["available_energy"].toArray();
-    for (auto iter = energyArray.begin(); iter != energyArray.end(); ++iter) {
-        if (iter->toString() == "default") {
-            ui->energyDefaultToolButton->show();
-        } else if (iter->toString() == "performance") {
-            ui->energyPerfToolButton->show();
-        } else if (iter->toString() == "balance_performance") {
-            ui->energyBalancePerfToolButton->show();
-        } else if (iter->toString() == "balance_power") {
-            ui->energyBalancePowersaveToolButton->show();
-        } else if (iter->toString() == "power") {
-            ui->energyPowersaveToolButton->show();
+    if (energyArray.isEmpty()) {
+        ui->energyGroupBox->hide();
+    } else {
+        for (auto iter = energyArray.begin(); iter != energyArray.end(); ++iter) {
+            if (iter->toString() == "default") {
+                ui->energyDefaultToolButton->show();
+            } else if (iter->toString() == "performance") {
+                ui->energyPerfToolButton->show();
+            } else if (iter->toString() == "balance_performance") {
+                ui->energyBalancePerfToolButton->show();
+            } else if (iter->toString() == "balance_power") {
+                ui->energyBalancePowersaveToolButton->show();
+            } else if (iter->toString() == "power") {
+                ui->energyPowersaveToolButton->show();
+            }
         }
     }
 
@@ -134,14 +144,18 @@ void PstateMainWidget::refresh() {
         ui->energyPowersaveToolButton->setChecked(true);
     }
 
-    int gpuMinLimit = dataJson["gpu_min_limit"].toString().toInt();
-    int gpuMaxLimit = dataJson["gpu_max_limit"].toString().toInt();
-    ui->gpuMinFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
-    ui->gpuMaxFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
-    ui->gpuBoostFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
-    ui->gpuMinFreqSlider->setValue(dataJson["gpu_min_freq"].toString().toInt());
-    ui->gpuMaxFreqSlider->setValue(dataJson["gpu_max_freq"].toString().toInt());
-    ui->gpuBoostFreqSlider->setValue(dataJson["gpu_boost_freq"].toString().toInt());
+    if (dataJson["gpu_min_limit"].toString().isEmpty()) {
+        ui->gpuGroupBox->hide();
+    } else {
+        int gpuMinLimit = dataJson["gpu_min_limit"].toString().toInt();
+        int gpuMaxLimit = dataJson["gpu_max_limit"].toString().toInt();
+        ui->gpuMinFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+        ui->gpuMaxFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+        ui->gpuBoostFreqSlider->setRange(gpuMinLimit, gpuMaxLimit);
+        ui->gpuMinFreqSlider->setValue(dataJson["gpu_min_freq"].toString().toInt());
+        ui->gpuMaxFreqSlider->setValue(dataJson["gpu_max_freq"].toString().toInt());
+        ui->gpuBoostFreqSlider->setValue(dataJson["gpu_boost_freq"].toString().toInt());
+    }
 }
 
 void PstateMainWidget::setCpuGov(int buttonId) {
