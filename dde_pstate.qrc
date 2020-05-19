@@ -14,5 +14,6 @@
     </qresource>
     <qresource prefix="/translations">
         <file alias="app_zh.qm">resources/translations/app_zh.qm</file>
+        <file alias="app_es.qm">resources/translations/app_es.qm</file>
     </qresource>
 </RCC>

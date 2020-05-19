@@ -184,7 +184,7 @@
         <location filename="../build/ui_PstateMainWidget.h" line="490"/>
         <location filename="../cmake-build-debug/ui_PstateMainWidget.h" line="490"/>
         <source>Balance Performance</source>
-        <translation>Rendimiento Equilibrado/translation>
+        <translation>Rendimiento Equilibrado</translation>
     </message>
     <message>
         <location filename="../PstateMainWidget.ui" line="752"/>

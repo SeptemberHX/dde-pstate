@@ -18,6 +18,11 @@ PstateMainWidget::PstateMainWidget(QWidget *parent) :
             this->m_translator->load(":/translations/app_zh.qm");
             qApp->installTranslator(this->m_translator);
             ui->retranslateUi(this);
+        case QLocale::Spanish:
+            this->m_translator = new QTranslator(this);
+            this->m_translator->load(":/translations/app_es.qm");
+            qApp->installTranslator(this->m_translator);
+            ui->retranslateUi(this);
         default:
             break;
     }
