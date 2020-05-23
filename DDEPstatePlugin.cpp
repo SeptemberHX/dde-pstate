@@ -19,6 +19,21 @@ const QString DDEPstatePlugin::pluginName() const {
 void DDEPstatePlugin::init(PluginProxyInterface *proxyInter) {
     this->m_proxyInter = proxyInter;
 
+    switch (QLocale::system().language()) {
+        case QLocale::Chinese:
+            this->m_translator = new QTranslator(this);
+            this->m_translator->load(":/translations/app_zh.qm");
+            qApp->installTranslator(this->m_translator);
+            break;
+        case QLocale::Spanish:
+            this->m_translator = new QTranslator(this);
+            this->m_translator->load(":/translations/app_es.qm");
+            qApp->installTranslator(this->m_translator);
+            break;
+        default:
+            break;
+    }
+
     this->m_pluginWidget = new DDEPstateWidget();
     this->m_tipsWidget = new QLabel();
     this->m_appletWidget = new PstateMainWidget();
@@ -61,7 +76,15 @@ const QString DDEPstatePlugin::pluginDisplayName() const {
 QWidget *DDEPstatePlugin::itemTipsWidget(const QString &itemKey) {
     Q_UNUSED(itemKey);
     QJsonObject allData = PStateUtils::readAll();
-    m_tipsWidget->setText(allData["cpu_governor"].toString());
+
+    QString gov = allData["cpu_governor"].toString();
+    if (gov == "performance") {
+        m_tipsWidget->setText(tr("performance"));
+    } else if (gov == "powersave") {
+        m_tipsWidget->setText(tr("powersave"));
+    } else {
+        m_tipsWidget->setText("DDE Pstate");
+    }
 
     return m_tipsWidget;
 }

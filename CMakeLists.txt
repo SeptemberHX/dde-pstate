@@ -72,6 +72,7 @@ set(TS_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/translations/app_es.ts
         )
 qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+SET_DIRECTORY_PROPERTIES(PROPERTIES CLEAN_NO_CUSTOM 1)
 
 qt5_wrap_ui(UIS_HDRS
         PstateMainWidget.ui

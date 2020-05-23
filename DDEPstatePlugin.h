@@ -46,6 +46,7 @@ public:
     void setSortKey(const QString &itemKey, const int order) Q_DECL_OVERRIDE;
 
 private:
+    QTranslator *m_translator;
     DDEPstateWidget *m_pluginWidget;
     PstateMainWidget *m_appletWidget;
     QLabel *m_tipsWidget;
