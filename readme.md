@@ -10,9 +10,13 @@
 
 ### Install
 
-#### From release
+#### From release (Deepin V20)
 
 Download deb file from release and install it with `sudo apt install /path/to/dde-pstate.deb`
+
+#### Arch
+
+Thanks to @JunioCalu . dde-pstate is on AUR now: [https://aur.archlinux.org/packages/dde-pstate/](https://aur.archlinux.org/packages/dde-pstate/)
 
 #### Build from source
 
