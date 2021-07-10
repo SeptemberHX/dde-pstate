@@ -69,7 +69,7 @@ void DDEPstateWidget::updateIcon() {
             size = PLUGIN_BACKGROUND_MAX_SIZE;
     }
 
-    QIcon icon = QIcon::fromTheme( "dde-pstate.svg", this->m_defaultIcon);
+    QIcon icon = QIcon(":/icons/dde-pstate.svg");
 
     const auto ratio = devicePixelRatioF();
     this->m_icon = icon.pixmap(size * ratio, size * ratio);

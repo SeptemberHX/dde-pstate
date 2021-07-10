@@ -4,7 +4,7 @@
 # https://cmake.org/cmake/help/latest/
 
 # 设置运行被配置所需的 cmake 最低版本
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.18)
 
 # 使用 set 命令设置一个变量
 set(PLUGIN_NAME "dde_pstate")
@@ -108,9 +108,5 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE
         ${DdeDockInterface_LIBRARIES}
         )
 
-# 设置安装路径的前缀(默认为"/usr/local")
-set(CMAKE_INSTALL_PREFIX "/usr")
-
-# 设置执行 make install 时哪个目标应该被 install 到哪个位置
-install(TARGETS ${PLUGIN_NAME} LIBRARY DESTINATION lib/dde-dock/plugins)
-install(PROGRAMS resources/scripts/set_prefs.sh DESTINATION /opt/dde-dock/scripts)
+include(deb.cmake)
+include(CPack)
